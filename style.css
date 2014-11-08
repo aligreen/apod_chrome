@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100);
+
+body {
+    margin: 0;
+    font-family: 'Lato';
+}
+
+#background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+}
+
+.info-container {
+	position: absolute;
+	top: 100px;
+	left: 0;
+
+}
+
+.info-container:hover .info {
+	display: block;
+}
+
+.info {
+	display: block;
+	font-weight: 100;
+	font-size: 20px;
+	color: white;
+}
+
+
+.credit-container {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+
+.credit-icon {
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	color: black;
+	text-align: center;
+	border-radius: 50%;
+	opacity: 0.75;
+}
+.credit-name {
+	display: none;
+	padding: 5px;
+	color: white;
+	background-color: black;
+	border-radius: 5px;
+}
+.credit-container:hover .credit-name{ 
+	display: block;
+}
+
+.credit-container:hover .credit-icon {
+	display: none;
+}
+
+
+
+
+
