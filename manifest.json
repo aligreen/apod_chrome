@@ -8,7 +8,7 @@
   "chrome_url_overrides" : {
     "newtab" : "apod.html"
   },
-  "permissions": [ "tabs", "http://www.google.com/" ],
+  "permissions": [ "tabs" ],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
