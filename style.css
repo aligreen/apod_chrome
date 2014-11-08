@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:100);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300);
 
 body {
     margin: 0;
@@ -19,54 +19,90 @@ body {
 	height: 100%;
 }
 
+h1 {
+	position: absolute;
+	top: 50px;
+	left: 0;
+	font-size: 46px;
+	text-transform: uppercase;
+	max-width: 200px;
+	color: white;
+	font-weight: 100;
+	margin: 0;
+}
+
+h1 a {
+	text-decoration: none;
+	color: white;
+}
+
+.info-icon {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	left: 0;
+	top: 300px;
+	background-color: #333;
+	font-size: 20px;
+	border-radius: 50%;
+	color: white;
+	text-align: center;
+	opacity: 0.6;
+	cursor: pointer;
+	line-height: 30px;
+}
+
+.info-icon:hover {
+	opacity: 1;
+}
+
 .info-container {
 	position: absolute;
-	top: 100px;
+	top: 340px;
 	left: 0;
+	max-height: 400px;
+	overflow-y: scroll;
 
 }
+
+.info-container::-webkit-scrollbar { width: 0 !important };
 
 .info-container:hover .info {
 	display: block;
 }
 
 .info {
-	display: block;
-	font-weight: 100;
-	font-size: 20px;
+	display: none;
+	font-weight: 300;
+	font-size: 16px;
+	max-width: 500px;
+	background-color: rgba(51, 51, 51, 0.8);	
+	padding: 15px;
 	color: white;
+	border-radius: 15px;
 }
 
+.info a {
+	color: #FFAB91	;
+	text-decoration: none;
+}
 
-.credit-container {
+.info a:hover {
+	color: #FFAB91	;
+}
+
+.date {
 	position: absolute;
 	bottom: 0px;
 	right: 0px;
-}
-
-.credit-icon {
-	width: 20px;
-	height: 20px;
-	background-color: white;
-	color: black;
-	text-align: center;
-	border-radius: 50%;
-	opacity: 0.75;
-}
-.credit-name {
-	display: none;
-	padding: 5px;
+	padding: 5;
+	font-size: 46px;
 	color: white;
-	background-color: black;
-	border-radius: 5px;
-}
-.credit-container:hover .credit-name{ 
-	display: block;
+	font-family: 'Lato';
+	font-weight: 100;
+	text-transform: uppercase;
 }
 
-.credit-container:hover .credit-icon {
-	display: none;
-}
 
 
 
