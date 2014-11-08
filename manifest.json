@@ -6,7 +6,7 @@
   "version": "1.0",
 
   "chrome_url_overrides" : {
-    "newtab" : "star_saga.html"
+    "newtab" : "apod.html"
   },
   "permissions": [ "tabs", "http://www.google.com/" ],
   "content_scripts": [

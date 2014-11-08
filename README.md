@@ -1,4 +1,5 @@
-star_saga
-=========
+Astronomy Picture of the Day
 
-come back from the light
+=======
+
+Chrome extension to open the latest Astronomy Picture of the Day in your new tab
