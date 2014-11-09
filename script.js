@@ -1,61 +1,60 @@
-(function () {
-  var fallback = new Object();
-  fallback.url = 'http://apod.nasa.gov/apod/image/1408/m57_nasagendler_3000.jpg';
-  fallback.text = 'Head to http://apod.nasa.gov/ for more great astronomy pictures';
+$(document).ready(function() {
 
-  var apod = 'https://astronomy-pic-of-the-day.herokuapp.com/api.json',
-      picture, 
-      info;
+  var API_URL = 'https://astronomy-pic-of-the-day.herokuapp.com/api.json',
+      FALLBACK_PICTURE_URI = 'images/fallback.png',
+      FALLBACK_PICTURE_TEXT = 'Head to http://apod.nasa.gov/ for more great astronomy pictures',
+      fallback = { url: FALLBACK_PICTURE_URI, text: FALLBACK_PICTURE_TEXT };
 
-  function parseAPOD(url) {
+  /**
+  @function getLatestApod
+  @param String apiUrl
+  @param Function callback
+  **/
+  function getLatestApod(apiUrl, callback, failureCallback) {
     $.ajax({
-      url : url,
+      url : apiUrl,
       dataType: 'json',
-      success: function(data) {
-        parseData(data);
-      },
-      error: function() {
-        setData(fallback.url, fallback.text);
-      }
+      success: callback,
+      failure: failureCallback
     });
   }
 
-  function parseData(data) {
-    if (data) {
-      picture = data.url;
-      info = data.text;
-    }
-    setData(picture, info);
+  /**
+  @function showExplanationOnClick
+  **/
+  function showExplanationOnClick() {
+    $('.info-icon').click(function() { $('.info').slideToggle('fast'); });
   }
 
-  function setData(picture, info) {
+  /**
+  @function render
+  @param String imageSrc
+  @param String explanation
+  **/
+  function render(imageSrc, explanation) {
     var now, formattedDate, months;
-    $("#background").attr("src", picture);
-    $('.info').html(info);
+
+    $("#background").attr("src", imageSrc);
+    $('.info').html(explanation);
 
     // set date
     now = new Date();
     months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     formattedDate = months[now.getMonth()] + ' ' + now.getDate();
-    $('.date').html(formattedDate); 
+    $('.date').html(formattedDate);
+
+    showExplanationOnClick();
   }
 
-  function displayInfo() {
-    $('.info-icon').click( function() {
-        $('.info').slideToggle('slow');
-      }
-    );  
-  }
-
+  /**
+  @function init
+  **/
   function init() {
-    
-      parseAPOD(apod);
-      $( document ).ready(function() {
-        displayInfo();
-      });
+    var success = function (data) { render(data.url, data.text) },
+        failure = function (data) { render(fallback.url, fallback.text) };
+
+    getLatestApod(API_URL, success, failure);
   }
 
-  if (document.location.pathname === '/apod.html') {
-    init();
-  }
-})();
+  init();
+});
