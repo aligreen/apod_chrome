@@ -32,16 +32,30 @@ $(document).ready(function() {
   @param String explanation
   **/
   function render(imageSrc, explanation) {
-    var now, formattedDate, months;
+    var now, date, time;
+    var military = false;
 
     $("#background").attr("src", imageSrc);
     $('.info').html(explanation);
 
     // set date
-    now = new Date();
-    months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    formattedDate = months[now.getMonth()] + ' ' + now.getDate();
-    $('.date').html(formattedDate);
+    date = moment().format("MMM Do");
+    $('.date').html(date);
+
+    time = moment().format("h:mm:ss");
+    $('.time').html(time);
+
+    $('.time').on('click', function() {
+        if(!military) {
+          time = moment().format("HH:mm:ss");
+          $('.time').html(time);
+          military = true;
+        } else {
+          time = moment().format("h:mm:ss");
+          $('.time').html(time);
+          military = false;
+        }
+    });
 
     showExplanationOnClick();
   }
