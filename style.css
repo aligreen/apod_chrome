@@ -60,7 +60,7 @@ h1 a {
 .info-container {
 	display: none;
 	position: absolute;
-	top: 280px;
+	top: 285px;
 	left: 0;
 	max-height: 400px;
 	max-width: 500px;
@@ -80,8 +80,10 @@ h1 a {
 .title {
 	font-size: 24px;
   margin-bottom: 10px;
+  padding-bottom: 10px;
   text-align: center;
   color: rgb(190, 190, 190);
+  border-bottom: solid 1px;
 }
 
 .info {
@@ -115,17 +117,21 @@ h1 a {
 	margin: 5px;
 }
 
+.credit-icon:hover {
+	opacity: 1;
+}
+
 .credit {
 	display: none;
 	position: absolute;
 	bottom: 0;
-	left: 45px;
+	left: 35px;
 	font-weight: 300;
 	font-size: 16px;
-	background-color: rgba(0, 0, 0, 0.75);	
+	background-color: rgba(0, 0, 0, 0.6);	
 	color: rgb(190, 190, 190);
-	border-radius: 15px;
-	padding: 5px;
+	border-radius: 10px;
+	padding: 7px;
 }
 
 .date, .time {
