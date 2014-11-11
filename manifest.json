@@ -5,11 +5,14 @@
     "scripts": [ "script.js" ]
   },
   "name": "Astronomy Picture of the Day",
-  "description": "This extension displays the Astronomy Picture of the Day from NASA's website.",
+  "description": "This extension displays the Astronomy Picture of the Day in your new tab page. Daily picture is from http://apod.nasa.gov/ where image credit and more information can be found. This is an unofficial APOD extension and not affiliated with NASA. Icon credit: Freepik from Flaticon is licensed by Creative Commons BY 3.0",
   "version": "1.0",
   "offline_enabled": true,
   "chrome_url_overrides" : {
     "newtab" : "apod.html"
+  },
+  "icons" : {
+    "128": "images/icon.png" 
   },
   "permissions": [ "tabs" ]
 }

@@ -83,13 +83,44 @@ h1 a {
 	border-radius: 15px;
 }
 
-.info a {
+.info a, .credit a {
 	color: #FFAB91	;
 	text-decoration: none;
 }
 
 .info a:hover {
 	color: white;
+}
+
+
+.credit-icon {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background-color: #333;
+	font-size: 15px;
+	border-radius: 50%;
+	color: white;
+	text-align: center;
+	opacity: 0.6;
+	cursor: pointer;
+	line-height: 20px;
+	margin: 5px;
+}
+
+.credit {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	left: 45px;
+	font-weight: 300;
+	font-size: 16px;
+	background-color: rgba(0, 0, 0, 0.75);	
+	color: rgb(190, 190, 190);
+	border-radius: 15px;
+	padding: 5px;
 }
 
 .date, .time {

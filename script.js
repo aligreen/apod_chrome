@@ -28,27 +28,15 @@ $(document).ready(function() {
   }
 
   /**
-  @function render
-  @param String imageSrc
-  @param String explanation
+  @function showExplanationOnClick
   **/
-  function render(imageSrc, explanation) {
-    var now, date;
-    
-    $("#background").attr("src", imageSrc);
-    $('.info').html(explanation);
-
-    // set date
-    date = moment().format("MMM Do");
-    $('.date').html(date);
-
-    showExplanationOnClick();
-    
-    setInterval(function() {
-      displayTime();
-    }, 1000);
+  function showCreditOnClick() {
+    $('.credit-icon').click(function() { $('.credit').slideToggle('fast'); });
   }
 
+  /**
+  @funtion displayTime
+  **/
   function displayTime() {
     var time;
   
@@ -71,6 +59,29 @@ $(document).ready(function() {
         $('.time').html(time);
     });
 
+  }
+
+  /**
+  @function render
+  @param String imageSrc
+  @param String explanation
+  **/
+  function render(imageSrc, explanation) {
+    var now, date;
+    
+    $("#background").attr("src", imageSrc);
+    $('.info').html(explanation);
+
+    // set date
+    date = moment().format("MMM Do");
+    $('.date').html(date);
+
+    showExplanationOnClick();
+    showCreditOnClick();
+
+    setInterval(function() {
+      displayTime();
+    }, 1000);
   }
 
   /**
