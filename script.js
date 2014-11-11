@@ -4,6 +4,7 @@ $(document).ready(function() {
       FALLBACK_PICTURE_URI = 'images/fallback.png',
       FALLBACK_PICTURE_TEXT = 'Head to http://apod.nasa.gov/ for more great astronomy pictures',
       fallback = { url: FALLBACK_PICTURE_URI, text: FALLBACK_PICTURE_TEXT };
+      is_military = false;
 
   /**
   @function getLatestApod
@@ -32,9 +33,8 @@ $(document).ready(function() {
   @param String explanation
   **/
   function render(imageSrc, explanation) {
-    var now, date, time;
-    var military = false;
-
+    var now, date;
+    
     $("#background").attr("src", imageSrc);
     $('.info').html(explanation);
 
@@ -42,22 +42,35 @@ $(document).ready(function() {
     date = moment().format("MMM Do");
     $('.date').html(date);
 
-    time = moment().format("h:mm:ss");
+    showExplanationOnClick();
+    
+    setInterval(function() {
+      displayTime();
+    }, 1000);
+  }
+
+  function displayTime() {
+    var time;
+  
+    if(is_military) {
+      time = moment().format("HH:mm:ss");  
+    } else {
+      time = moment().format("h:mm:ss");
+    }
     $('.time').html(time);
 
     $('.time').on('click', function() {
-        if(!military) {
+        if(!is_military) {
           time = moment().format("HH:mm:ss");
-          $('.time').html(time);
-          military = true;
+          is_military = true;
         } else {
           time = moment().format("h:mm:ss");
-          $('.time').html(time);
-          military = false;
+          is_military = false;
         }
+
+        $('.time').html(time);
     });
 
-    showExplanationOnClick();
   }
 
   /**
