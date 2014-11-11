@@ -58,12 +58,17 @@ h1 a {
 }
 
 .info-container {
+	display: none;
 	position: absolute;
 	top: 280px;
 	left: 0;
 	max-height: 400px;
+	max-width: 500px;
+	padding: 15px;
 	overflow-y: scroll;
-
+	background-color: rgba(0, 0, 0, 0.75);
+	color: rgb(190, 190, 190);
+	border-radius: 15px;
 }
 
 .info-container::-webkit-scrollbar { width: 0 !important };
@@ -72,15 +77,16 @@ h1 a {
 	display: block;
 }
 
+.title {
+	font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(190, 190, 190);
+}
+
 .info {
-	display: none;
 	font-weight: 300;
 	font-size: 16px;
-	max-width: 500px;
-	background-color: rgba(0, 0, 0, 0.75);
-	padding: 15px;
-	color: rgb(190, 190, 190);
-	border-radius: 15px;
 }
 
 .info a, .credit a {
@@ -88,10 +94,9 @@ h1 a {
 	text-decoration: none;
 }
 
-.info a:hover {
+.info a:hover, .credit a:hover {
 	color: white;
 }
-
 
 .credit-icon {
 	width: 20px;
@@ -141,12 +146,6 @@ h1 a {
 	bottom: 55px;
 	cursor: pointer;
 }
-
-.title {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
 
 
 

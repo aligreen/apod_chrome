@@ -72,8 +72,8 @@ $(document).ready(function() {
     var now, date;
 
     $("#background").attr("src", imageSrc);
-    $('.info-container').html(explanation);
     $('.title').html(title);
+    $('.info').html(explanation);
 
     // set date
     date = moment().format("MMM Do");
