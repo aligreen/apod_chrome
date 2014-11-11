@@ -22,7 +22,7 @@ body {
 h1 {
 	position: absolute;
 	top: 15px;
-	left: 0;
+	left: 5px;
 	font-size: 46px;
 	text-transform: uppercase;
 	max-width: 200px;
@@ -41,7 +41,7 @@ h1 a {
 	width: 30px;
 	height: 30px;
 	position: absolute;
-	left: 0;
+	left: 5px;
 	top: 250px;
 	background-color: #333;
 	font-size: 20px;
@@ -61,7 +61,7 @@ h1 a {
 	display: none;
 	position: absolute;
 	top: 285px;
-	left: 0;
+	left: 5px;
 	max-height: 400px;
 	max-width: 500px;
 	padding: 15px;
