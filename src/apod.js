@@ -1,20 +1,8 @@
 (function () {
 
-  var container = document.getElementById('container');
-
-  var Transition = React.addons.CSSTransitionGroup;
-
-  var getApodData = function () {
-    return {
-      explanation: " \n\n\u003ca href=\"http://www.nasa.gov/content/goddard/%0Aone-giant-sunspot-6-substantial-flares/\"\u003eSolar active region AR2192\u003c/a\u003e\nwas the largest recorded sunspot group of the last 24 years.\n\nBefore rotating off the\n\u003ca href=\"http://apod.nasa.gov/apod/ap141025.html\"\u003eEarth-facing side\u003c/a\u003e of the Sun at the end of\nOctober, it \u003ca href=\"http://www.nasa.gov/content/goddard/%0Asunspot-ar2192-flare-family-portrait/\"\u003eproduced a whopping\u003c/a\u003e\nsix energetic X-class flares.\n\nIts most intense flare was captured on October 24 in this\nstunning view from the orbiting\n\u003ca href=\"http://sdo.gsfc.nasa.gov/\"\u003eSolar Dynamics Observatory\u003c/a\u003e.\n\nThe scene is a\n\u003ca href=\"http://www.nasa.gov/mission_pages/sunearth/news/%0Alight-wavelengths.html\"\u003ecolor combination\u003c/a\u003e of\nimages made at three different wavelengths of\nextreme ultraviolet light;\n193 angstroms shown in blue, 171 angstroms in white, and 304 angstroms\nin red.\n\nThe emission, from highly ionized Iron and Helium atoms, traces\nmagnetic field lines looping through the hot\n\u003ca href=\"http://en.wikipedia.org/wiki/Plasma_%28physics%29\"\u003eplasma\u003c/a\u003e\nof the Sun's outer\n\u003ca href=\"http://solarscience.msfc.nasa.gov/chromos.shtml\"\u003echromosphere\u003c/a\u003e\nand corona.\n\nBeneath, the cooler solar photosphere appears dark at extreme ultraviolet\nwavelengths.\n\nThe exceptionally sharp composite image has been processed\nwith a new mathematical algorithm\n(\u003ca href=\"http://www.zam.fme.vutbr.cz/~druck/Nafe/Index.htm\"\u003eNAFE\u003c/a\u003e)\nthat adapts to noise and brightness in extreme ultraviolet\nimage data to reliably enhance small details.\n\n",
-      title: "Solar Flare from a Sharper Sun",
-      imageSrc: "http://apod.nasa.gov/apod/image/1411/SDO_AIA-2014_10_24-21_42UT1024.jpg"
-    }
-  }
-
-  var imageSrc = getApodData().imageSrc;
-  var explanation = getApodData().explanation;
-  var title = getApodData().title;
+  var FALLBACK_URI = '../images/fallback.jpg',
+      FALLBACK_EXPLANATION = "It is a familiar sight to sky enthusiasts with even a small telescope.  There is much more to the <a href='http://en.wikipedia.org/wiki/Ring_nebula'>Ring Nebula (M57)</a>, however, than can be seen through a <a href='http://cl.jroo.me/z3/j/I/f/e/a.baa-Dog-watching-through-a-teles.jpg'>small telescope</a>.  The easily visible <a href='http://antwrp.gsfc.nasa.gov/apod/image/0303/m57ring_hst_big.jpg'>central ring</a> is about one <a href='http://chandra.harvard.edu/photo/cosmic_distance.html'>light-year</a> across, but <a href='http://www.robgendlerastropics.com/M57-HST-LBT.html'>this remarkably deep exposure</a> - a collaborative effort combining data from three different large telescopes - <a href='http://arxiv.org/abs/astro-ph/0401056'>explores</a> the looping filaments of glowing gas extending much farther from the nebula\'s <a href='http://hubblesite.org/newscenter/archive/releases/1997/ 38/background/'>central star</a>.  This remarkable <a href='http://www.robgendlerastropics.com/M57-HST-LBT.html'>composite image</a> includes narrowband hydrogen image, visible light emission, and <a href='http://missionscience.nasa.gov/ems/07_infraredwaves.html'>infrared light</a> emission.  Of course, in this <a href='http://www.caha.es/the-ring-nebula.html'>well-studied example</a> of a <a href='http://www.noao.edu/jacoby/'>planetary nebula</a>, the glowing material does not come from planets.  Instead, the <a href='ap030614.html'>gaseous shroud</a> represents outer layers expelled from a dying, sun-like star.  The <a href='https://www.youtube.com/watch?v=OiYRL3HFULU'>Ring Nebula</a> is about 2,000 light-years away toward the musical <a href='http://www.hawastsoc.org/deepsky/lyr/index.html'>constellation Lyra</a>. ",
+      FALLBACK_TITLE = 'Rings Around the Ring Nebula';
 
   var Apod = React.createClass({
 
@@ -27,7 +15,7 @@
     },
 
     render: function () {
-      var info, credit, infoClasses, creditClasses;
+      var infoClasses, creditClasses, time, date, timeFormat;
 
       infoClasses = React.addons.classSet({
         'info-container': true,
@@ -39,27 +27,35 @@
         'show-credit': this.state.showCredit
       });
 
+      timeFormat = this.state.militaryTime ? 'HH:mm:ss' : 'h:mm:ss';
+      time = moment().format(timeFormat);
+      date = moment().format('MMM D');
+
       return(
         <div>
-          <img id="background" src={this.props.imageSrc} />
+          <img id='background' src={this.props.imageSrc} />
+          <div id='gradient-overlay' />
           <h1>
-            <a href="http://apod.nasa.gov">Astronomy Picture of the Day</a>
+            <a href='http://apod.nasa.gov'>Astronomy Picture of the Day</a>
           </h1>
 
-          <div className="info-icon" onClick={this.showInfo}>?</div>
+          <div className='info-icon' onClick={this.showInfo}>?</div>
           <div className={infoClasses}>
-            <div className="info-wrapper">
-              <div className="title" dangerouslySetInnerHTML={{ __html: this.props.title}} />
-              <div className="info" dangerouslySetInnerHTML={{ __html: this.props.explanation}} />
+            <div className='info-wrapper'>
+              <div className='title' dangerouslySetInnerHTML={{ __html: this.props.title}} />
+              <div className='info' dangerouslySetInnerHTML={{ __html: this.props.explanation}} />
             </div>
           </div>
 
-          <div className="credit-icon" onClick={this.showCredit}>i</div>
-          <div className="credit-container">
+          <div className='credit-icon' onClick={this.showCredit}>i</div>
+          <div className='credit-container'>
             <div className={creditClasses}>
-              All images are from <a href="http://apod.nasa.gov/">APOD</a>. Extension made by <a href="http://twitter.com/ohohbot">Ali</a> and <a href="http://twitter.com/flahertyb">Bart</a> for fun.
+              All images are from <a href='http://apod.nasa.gov/'>APOD</a>. Extension made by <a href='http://twitter.com/ohohbot'>Ali</a> and <a href='http://twitter.com/flahertyb'>Bart</a> for fun.
             </div>
           </div>
+
+          <div className='time' onClick={this.toggleMiltaryTime}>{time}</div>
+          <div className='date'>{date}</div>
 
         </div>
       );
@@ -71,12 +67,37 @@
 
     showCredit: function () {
       this.setState({showCredit: !this.state.showCredit});
+    },
+
+    toggleMiltaryTime: function () {
+      this.setState({militaryTime: !this.state.militaryTime});
     }
   });
 
-  React.render(
-    <Apod imageSrc={imageSrc} explanation={explanation} title={title} />,
-    container
-  );
+  var getApod = function (onSuccess, onFailure) {
+    reqwest({
+      url: 'https://astronomy-pic-of-the-day.herokuapp.com/api.json',
+      dataType: 'json',
+      success: onSuccess,
+      error: onFailure
+    });
+  };
+
+  var render = function (imageSrc, explanation, title) {
+    React.render(
+      <Apod imageSrc={imageSrc} explanation={explanation} title={title} />,
+      container
+    );
+  };
+
+  var onApodSuccess = function (response) {
+    render(response.url, response.explanation, response.title);
+  };
+
+  var onApodFailure = function (response) {
+    render(FALLBACK_URI, FALLBACK_EXPLANATION, FALLBACK_TITLE);
+  };
+
+  getApod(onApodSuccess, onApodFailure);
 
 }());
