@@ -96,7 +96,7 @@
           <div className='credit-icon' onClick={this.showCredit}>i</div>
           <div className='credit-container'>
             <div className={creditClasses}>
-              All images are from <a href='http://apod.nasa.gov/'>APOD</a>. Extension made by <a href='http://twitter.com/ohohbot'>Ali</a> and <a href='http://twitter.com/flahertyb'>Bart</a> for fun.
+              All images are from <a href='http://apod.nasa.gov/'>APOD</a>. CSS Toggle Slider from <a href="https://ghinda.net/css-toggle-switch/">ghinda</a>. Extension built by <a href='http://twitter.com/ohohbot'>Ali</a> and <a href='http://twitter.com/flahertyb'>Bart</a> for fun.
             </div>
           </div>
 

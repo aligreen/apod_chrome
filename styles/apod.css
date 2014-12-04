@@ -220,7 +220,7 @@ h1 a {
 .credit-container {
   position: absolute;
   overflow: hidden;
-  width: 480px;
+  width: 70%;
   height: 47px;
   bottom: 3px;
   left: 35px;
