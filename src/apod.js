@@ -50,13 +50,13 @@
 
       if (this.props.stretchImage) {
         imageClasses = 'stretch'
-        stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} checked />;
+        stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} checked defaultChecked="" readOnly />;
         centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} />;
       }
       else {
         imageClasses = 'center'
         stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} />;
-        centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} checked />;
+        centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} checked defaultChecked="" readOnly />;
       }
 
       timeFormat = this.props.militaryTime ? 'HH:mm:ss' : 'h:mm:ss';
@@ -106,18 +106,32 @@
       );
     },
 
-    componentDidMount: function () {
-      this.updateTime();
+
+    // React Component Lifecycle methods to manage constant time ticking
+    //
+    componentWillMount: function() {
+      this.intervals = [];
     },
 
-    componentDidUpdate: function () {
-      this.updateTime();
+    setInterval: function() {
+      this.intervals.push(setInterval.apply(null, arguments));
+    },
+
+    componentWillUnmount: function() {
+      this.intervals.map(clearInterval);
+    },
+
+    componentDidMount: function () {
+      this.setInterval(this.updateTime, 1000);
     },
 
     updateTime: function () {
-      setTimeout(function () { this.setState({time: moment()}) }.bind(this), 1000);
+      this.setState({time: moment()});
     },
 
+
+    // Click handlers for non-persistent state
+    //
     showInfo: function () {
       this.setState({showInfo: !this.state.showInfo});
     },
@@ -126,6 +140,9 @@
       this.setState({showCredit: !this.state.showCredit});
     },
 
+
+    // Click handlers for persistent state
+    //
     showSettings: function () {
       var state = { showSettings: !this.props.showSettings };
       this.props.persistState(state);
@@ -133,6 +150,7 @@
 
     toggleMiltaryTime: function () {
       var state = { militaryTime: !this.props.militaryTime };
+      console.log('calling persistState with', state);
       this.props.persistState(state);
     },
 
@@ -172,8 +190,10 @@
     );
 
     var persistState = function (state) {
+      console.log('Persisting local state: ', JSON.stringify(state));
       for (var key in state) {
         if (state.hasOwnProperty(key)) {
+
           localStorage['__apod_chrome__' + key] = JSON.stringify(state[key]);
         }
       }
