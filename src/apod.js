@@ -6,16 +6,28 @@
 
   var Apod = React.createClass({
 
+    getDefaultProps: function () {
+      return {
+        imageSrc: FALLBACK_URI,
+        title: FALLBACK_TITLE,
+        explanation: FALLBACK_EXPLANATION,
+        stretchImage: true
+      }
+    },
+
     getInitialState: function () {
       return {
         showCredit: false,
         showInfo: false,
-        militaryTime: false
+        showSettings: true,
+        militaryTime: false,
+        stretchImage: this.props.stretchImage,
+        time: moment()
       }
     },
 
     render: function () {
-      var infoClasses, creditClasses, time, date, timeFormat;
+      var infoClasses, creditClasses, settingsClasses, date, timeFormat, formattedTime;
 
       infoClasses = React.addons.classSet({
         'info-container': true,
@@ -27,14 +39,38 @@
         'show-credit': this.state.showCredit
       });
 
+      settingsClasses = React.addons.classSet({
+        'settings': true,
+        'show-settings': this.state.showSettings
+      });
+
+      imageClasses = React.addons.classSet({
+        'stretch': this.state.stretchImage,
+        'center': !this.state.stretchImage
+      });
+
       timeFormat = this.state.militaryTime ? 'HH:mm:ss' : 'h:mm:ss';
-      time = moment().format(timeFormat);
-      date = moment().format('MMM D');
+      formattedTime = this.state.time.format(timeFormat);
+      date = this.state.time.format('MMM D');
 
       return(
         <div>
-          <img id='background' src={this.props.imageSrc} />
+          <img ref="apodImage" id='background' src={this.props.imageSrc} className={imageClasses}/>
           <div id='gradient-overlay' />
+
+          <div className='settings-container'>
+            <div className='settings-icon' onClick={this.showSettings}>S</div>
+            <div className={settingsClasses}>
+              <div className="switch-toggle switch-candy settings-switch">
+                <input id="stretch" name="view" type="radio" defaultChecked="" onClick={this.stretchImage} />
+                <label htmlFor="stretch" onclick="">Stretch</label>
+                <input id="center" name="view" type="radio" onClick={this.centerImage} />
+                <label htmlFor="center" onclick="">Center</label>
+                <a></a>
+              </div>
+            </div>
+          </div>
+
           <h1>
             <a href='http://apod.nasa.gov'>Astronomy Picture of the Day</a>
           </h1>
@@ -54,11 +90,22 @@
             </div>
           </div>
 
-          <div className='time' onClick={this.toggleMiltaryTime}>{time}</div>
+          <div className='time' onClick={this.toggleMiltaryTime}>{formattedTime}</div>
           <div className='date'>{date}</div>
-
         </div>
       );
+    },
+
+    componentDidMount: function () {
+      this.updateTime();
+    },
+
+    componentDidUpdate: function () {
+      this.updateTime();
+    },
+
+    updateTime: function () {
+      setTimeout(function () { this.setState({time: moment()}) }.bind(this), 1000);
     },
 
     showInfo: function () {
@@ -69,9 +116,22 @@
       this.setState({showCredit: !this.state.showCredit});
     },
 
+    showSettings: function () {
+      this.setState({showSettings: !this.state.showSettings});
+    },
+
     toggleMiltaryTime: function () {
       this.setState({militaryTime: !this.state.militaryTime});
+    },
+
+    stretchImage: function () {
+      this.setState({stretchImage: true});
+    },
+
+    centerImage: function () {
+      this.setState({stretchImage: false});
     }
+
   });
 
   var getApod = function (onSuccess, onFailure) {
