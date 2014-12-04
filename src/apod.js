@@ -11,7 +11,9 @@
         imageSrc: FALLBACK_URI,
         title: FALLBACK_TITLE,
         explanation: FALLBACK_EXPLANATION,
-        stretchImage: true
+        stretchImage: true,
+        showSettings: true,
+        militaryTime: false
       }
     },
 
@@ -19,9 +21,6 @@
       return {
         showCredit: false,
         showInfo: false,
-        showSettings: true,
-        militaryTime: false,
-        stretchImage: this.props.stretchImage,
         time: moment()
       }
     },
@@ -41,15 +40,26 @@
 
       settingsClasses = React.addons.classSet({
         'settings': true,
-        'show-settings': this.state.showSettings
+        'show-settings': this.props.showSettings
       });
 
       imageClasses = React.addons.classSet({
-        'stretch': this.state.stretchImage,
-        'center': !this.state.stretchImage
+        'stretch': this.props.stretchImage,
+        'center': !this.props.stretchImage
       });
 
-      timeFormat = this.state.militaryTime ? 'HH:mm:ss' : 'h:mm:ss';
+      if (this.props.stretchImage) {
+        imageClasses = 'stretch'
+        stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} checked />;
+        centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} />;
+      }
+      else {
+        imageClasses = 'center'
+        stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} />;
+        centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} checked />;
+      }
+
+      timeFormat = this.props.militaryTime ? 'HH:mm:ss' : 'h:mm:ss';
       formattedTime = this.state.time.format(timeFormat);
       date = this.state.time.format('MMM D');
 
@@ -62,9 +72,9 @@
             <div className='settings-icon' onClick={this.showSettings}>S</div>
             <div className={settingsClasses}>
               <div className="switch-toggle switch-candy settings-switch">
-                <input id="stretch" name="view" type="radio" defaultChecked="" onClick={this.stretchImage} />
+                {stretchInput}
                 <label htmlFor="stretch" onclick="">Stretch</label>
-                <input id="center" name="view" type="radio" onClick={this.centerImage} />
+                {centerInput}
                 <label htmlFor="center" onclick="">Center</label>
                 <a></a>
               </div>
@@ -117,19 +127,23 @@
     },
 
     showSettings: function () {
-      this.setState({showSettings: !this.state.showSettings});
+      var state = { showSettings: !this.props.showSettings };
+      this.props.persistState(state);
     },
 
     toggleMiltaryTime: function () {
-      this.setState({militaryTime: !this.state.militaryTime});
+      var state = { militaryTime: !this.props.militaryTime };
+      this.props.persistState(state);
     },
 
     stretchImage: function () {
-      this.setState({stretchImage: true});
+      var state = { stretchImage: true };
+      this.props.persistState(state);
     },
 
     centerImage: function () {
-      this.setState({stretchImage: false});
+      var state = { stretchImage: false };
+      this.props.persistState(state);
     }
 
   });
@@ -143,11 +157,41 @@
     });
   };
 
+  var keyExistsInStorage = function (key) {
+    return localStorage.hasOwnProperty('__apod_chrome__' + key);
+  };
+
+  var retrieveState = function (key) {
+    return JSON.parse(localStorage['__apod_chrome__' + key]);
+  };
+
   var render = function (imageSrc, explanation, title) {
-    React.render(
+    var component = React.render(
       <Apod imageSrc={imageSrc} explanation={explanation} title={title} />,
       container
     );
+
+    var persistState = function (state) {
+      for (var key in state) {
+        if (state.hasOwnProperty(key)) {
+          localStorage['__apod_chrome__' + key] = JSON.stringify(state[key]);
+        }
+      }
+
+      component.setProps(state);
+    };
+
+    component.setProps({persistState: persistState});
+
+    if (keyExistsInStorage('stretchImage')) {
+      component.setProps({stretchImage: retrieveState('stretchImage')});
+    }
+    if (keyExistsInStorage('showSettings')) {
+      component.setProps({showSettings: retrieveState('showSettings')});
+    }
+    if (keyExistsInStorage('militaryTime')) {
+      component.setProps({militaryTime: retrieveState('militaryTime')});
+    }
   };
 
   var onApodSuccess = function (response) {
