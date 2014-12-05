@@ -71,7 +71,7 @@ $(document).ready(function() {
   function render(imageSrc, explanation, title) {
     var now, date;
 
-    $("#background").attr("src", imageSrc);
+    $("#background").attr("src", 'images/fallback.jpg');
     $('.title').html(title);
     $('.info').html(explanation);
 

@@ -2,16 +2,16 @@
   "manifest_version": 2,
   "background": {
     "persistent": false,
-    "scripts": [ "script.js" ]
+    "scripts": [ "build/apod.js" ]
   },
   "name": "Astronomy Picture of the Day",
   "description": "This extension displays the Astronomy Picture of the Day in your new tab page.",
   "version": "1.2",
   "chrome_url_overrides" : {
-    "newtab" : "apod.html"
+    "newtab" : "index.html"
   },
   "icons" : {
-    "128": "images/icon.png" 
+    "128": "images/icon.png"
   },
-  "permissions": [ "tabs" ]
+  "permissions": [ "tabs", "storage" ]
 }
