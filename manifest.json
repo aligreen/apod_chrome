@@ -6,7 +6,7 @@
   },
   "name": "Astronomy Picture of the Day",
   "description": "This extension displays the Astronomy Picture of the Day in your new tab page.",
-  "version": "1.2",
+  "version": "1.21",
   "chrome_url_overrides" : {
     "newtab" : "index.html"
   },
