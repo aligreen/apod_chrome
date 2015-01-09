@@ -21,6 +21,7 @@
       return {
         showCredit: false,
         showInfo: false,
+        moveIcon: false,
         time: moment()
       }
     },
@@ -30,12 +31,22 @@
 
       infoClasses = React.addons.classSet({
         'info-container': true,
-        'show-info': this.state.showInfo
+        'show-info': this.state.showInfo,
+      });
+
+      infoIconClasses = React.addons.classSet({
+        'info-icon': true,
+        'move-info-icon' : this.state.showInfo,
       });
 
       creditClasses = React.addons.classSet({
-        'credit': true,
+        'credit-container': true,
         'show-credit': this.state.showCredit
+      });
+
+      creditIconClasses = React.addons.classSet({
+        'credit-icon': true,
+        'move-credit-icon': this.state.showCredit
       });
 
       settingsClasses = React.addons.classSet({
@@ -49,7 +60,7 @@
       });
 
       if (this.props.stretchImage) {
-        imageClasses = 'stretch'
+        imageClasses = 'stretch';
         stretchInput = <input id="stretch" name="view" type="radio" onClick={this.stretchImage} checked defaultChecked="" readOnly />;
         centerInput = <input id="center" name="view" type="radio" onClick={this.centerImage} />;
       }
@@ -85,7 +96,7 @@
             <a href='http://apod.nasa.gov'>Astronomy Picture of the Day</a>
           </h1>
 
-          <div className='info-icon' onClick={this.showInfo}>?</div>
+          <div className={infoIconClasses} onClick={this.showInfo}>?</div>
           <div className={infoClasses}>
             <div className='info-wrapper'>
               <div className='title' dangerouslySetInnerHTML={{ __html: this.props.title}} />
@@ -93,11 +104,9 @@
             </div>
           </div>
 
-          <div className='credit-icon' onClick={this.showCredit}>i</div>
-          <div className='credit-container'>
-            <div className={creditClasses}>
-              All images are from <a href='http://apod.nasa.gov/'>APOD</a>. CSS Toggle Slider from <a href="https://ghinda.net/css-toggle-switch/">ghinda</a>. Extension built by <a href='http://twitter.com/ohohbot'>Ali</a> and <a href='http://twitter.com/flahertyb'>Bart</a> for fun.
-            </div>
+          <div className={creditIconClasses} onClick={this.showCredit}>i</div>
+          <div className={creditClasses}>
+            All images are from <a href='http://apod.nasa.gov/'>APOD</a>. Extension built by <a href='http://twitter.com/ohohbot'>Ali</a> and <a href='http://twitter.com/flahertyb'>Bart</a> for fun.
           </div>
 
           <div className='time' onClick={this.toggleMiltaryTime}>{formattedTime}</div>
@@ -140,7 +149,6 @@
       this.setState({showCredit: !this.state.showCredit});
     },
 
-
     // Click handlers for persistent state
     //
     showSettings: function () {
@@ -150,7 +158,6 @@
 
     toggleMiltaryTime: function () {
       var state = { militaryTime: !this.props.militaryTime };
-      console.log('calling persistState with', state);
       this.props.persistState(state);
     },
 
@@ -190,7 +197,6 @@
     );
 
     var persistState = function (state) {
-      console.log('Persisting local state: ', JSON.stringify(state));
       for (var key in state) {
         if (state.hasOwnProperty(key)) {
 

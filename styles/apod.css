@@ -11,6 +11,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: black;
+  overflow: hidden;
 }
 
 #gradient-overlay {
@@ -46,9 +47,9 @@ body {
 
 h1 {
   position: absolute;
-  top: 15px;
+  top: 5px;
   left: 5px;
-  font-size: 46px;
+  font-size: 36px;
   text-transform: uppercase;
   max-width: 200px;
   color: white;
@@ -66,16 +67,19 @@ h1 a {
   width: 30px;
   height: 30px;
   position: absolute;
-  left: 5px;
-  top: 250px;
-  background-color: #333;
+  left: 0px;
+  top: 200px;
+  background-color: rgba(0, 0, 0, 0.75);
   font-size: 20px;
-  border-radius: 50%;
   color: white;
   text-align: center;
   opacity: 0.6;
   cursor: pointer;
   line-height: 30px;
+
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-delay: 0.0s;
+  -webkit-transition-timing-function: linear;
 }
 
 .info-icon:hover {
@@ -84,17 +88,15 @@ h1 a {
 
 .info-container {
   position: absolute;
-  top: 285px;
-  left: 5px;
+  top: 200px;
+  left: -500px;
 
-  max-height: 0px;
   max-width: 500px;
   overflow: hidden;
 
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.75);
   color: rgb(190, 190, 190);
-  border-radius: 15px;
 
   -webkit-transition-duration: 0.3s;
   -webkit-transition-delay: 0.0s;
@@ -111,16 +113,16 @@ h1 a {
 
 .settings-icon {
   float: right;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   background-color: #333;
-  font-size: 20px;
-  border-radius: 50%;
+  font-size: 12px;
   color: white;
   text-align: center;
   opacity: 0.6;
   cursor: pointer;
-  line-height: 30px;
+  line-height: 15px;
+  margin-top: 5px;
 }
 
 .settings {
@@ -140,7 +142,7 @@ h1 a {
 
 .settings-switch {
   width: 150px;
-  margin: 6px;
+  margin: 2px;
 }
 
 .info-wrapper {
@@ -162,16 +164,16 @@ h1 a {
 }
 
 .show-info {
-  max-height: 400px;
+  left: 0;
   -webkit-user-select: auto;
 }
 
-.info a, .credit a {
+.info a, .credit-container a {
   color: #FFAB91	;
   text-decoration: none;
 }
 
-.info a:hover, .credit a:hover {
+.info a:hover, .credit-container a:hover {
   color: white;
 }
 
@@ -189,41 +191,35 @@ h1 a {
   position: absolute;
   left: 0;
   bottom: 0;
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.75);
   font-size: 15px;
-  border-radius: 50%;
   color: white;
   text-align: center;
   opacity: 0.6;
   cursor: pointer;
   line-height: 20px;
-  margin: 5px;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-delay: 0.0s;
+  -webkit-transition-timing-function: linear;
 }
 
 .credit-icon:hover {
   opacity: 1;
 }
 
-.credit {
-  position: absolute;
-  bottom: -60px;
-  font-weight: 300;
-  font-size: 16px;
-  background-color: rgba(0, 0, 0, 0.6);
-  height: 19px;
-  color: rgb(190, 190, 190);
-  border-radius: 10px;
-  padding: 7px;
-  -webkit-transition: 0.3s;
-}
-
 .credit-container {
   position: absolute;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: rgb(190, 190, 190);
   overflow: hidden;
-  width: 70%;
-  height: 47px;
-  bottom: 3px;
-  left: 35px;
+  height: 20px;
+  bottom: -30px;
+  padding: 5px;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-delay: 0.0s;
+  -webkit-transition-timing-function: linear;
 }
 
 .show-credit {
@@ -232,9 +228,9 @@ h1 a {
 
 .date, .time {
   position: absolute;
-  bottom: 0px;
+  bottom: 15px;
   right: 0px;
-  padding: 15px;
+  padding: 15px 5px;
   font-size: 46px;
   color: rgb( 190, 190, 190 );
   font-family: 'Lato';
@@ -245,10 +241,21 @@ h1 a {
 }
 
 .time {
-  bottom: 55px;
+  bottom: 65px;
   cursor: pointer;
 }
 
+.move-info-icon {
+  left: 500px;
+  opacity: 1.0;
+  border-left: solid 1px #333;
+}
+
+.move-credit-icon {
+  bottom: 30px;
+  opacity: 1.0;
+  border-bottom: solid 1px #333;
+}
 
 
 
