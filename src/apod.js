@@ -175,7 +175,7 @@
 
   var getApod = function (onSuccess, onFailure) {
     reqwest({
-      url: 'https://astronomy-pic-of-the-day.herokuapp.com/api.json',
+      url: 'https://api.nasa.gov/planetary/apod?api_key=XKPK15fDJZupUl7H5bX6lrWCksGxpf7JGd6BtOZB',
       dataType: 'json',
       success: onSuccess,
       error: onFailure
